@@ -1,15 +1,15 @@
-Ôªø#Pi Zero Snowboy
+# Pi Zero Snowboy
 Complete guide to setting up voice activated software with Raspberry Pi Zero. 1.0 22/07/2018
-##HARDWARE
+## HARDWARE
 Raspberry Pi Zero W
 USB Sound Card Adapter (BENGOO)
 3.5mm lavalier lapel mic (AGPtEK)
 1W 8Ohm speakers with 3.5mm connection
 8GB micro SD card
 USB Micro to USB adapter (Tiny OTG)
-##HARDWARE VARIATIONS
+## HARDWARE VARIATIONS
 It is possible to use different hardware variations for the Pi Zero, but this setup was the easiest for me. You can go with a Raspberry Pi Zero without WiFi to save $5, but it's a very convenient feature for SSH logins. I would recommend not going with more powerful speakers if you can avoid it and especially if you want to go mobile. P=I^2(R)  1=I^2(8)  I^2=1/8  I=sqrt(1/8)  I~354mA. 354mA is going to be a big drain on a mobile setup and more powerful speakers will require an external source of power. I went with a USB sound card because of the ability to adjust the volume outside of software. There are of course cheaper USB sound cards, but this solution seems to work best for Pi Zero because there is no audio jack and there is only one micro USB available for IO. You can potentially go with a mic in on the micro usb port and audio out on HDMI if that is cheaper or if you have a HDMI audio out adapter lying around just make sure you force enable HDMI audio out under raspi-config and adjust the .asoundrc accordingly. 
-##SNOWBOY SETUP
+## SNOWBOY SETUP
 Fresh set up for Pi Zero. Skip down to update if you already know how to do this.
 Sketch Lite - download raspbian sketch lite. Flash image of sketch lite onto micro SD with Etcher or favorite image flasher and put into Pi Zero. Use command
 ```
@@ -27,7 +27,7 @@ Install dependencies with command
 ```
 sudo apt -y install python-pyaudio python3-pyaudio sox python3-pip python-pip libatlas-base-dev
 ```
-Install PortAudio‚Äôs Python bindings with commands
+Install PortAudioís Python bindings with commands
 ```
 sudo pip install pyaudio
 sudo pip3 install pyaudio
@@ -90,14 +90,14 @@ Make sure you press F5 to view all settings (your shortcut key might be differen
 ```
 sudo alsactl store
 ```
-##CUSTOMIZING SNOWBOY THROUGH SNOWBOY WEBSITE
+## CUSTOMIZING SNOWBOY THROUGH SNOWBOY WEBSITE
 I found this method easier since I was using multiple models and callbacks. Log into https://snowboy.kitt.ai/ and create your personal models or find a universal model for your hotwords. Use FileZilla or FTP client of your choosing to login to your pi (similar to PuTTY but can't use the command line) and transfer your custom files into the proper directories. Transfer snowboy.py and snowboydecoder.py into ~/snowboy directory. Make sure your three .wav files for your personal models are in the ~/snowboy directory too. Your response sounds, .pmdl, and/or .umdl should be in the ~/snowboy/resources directory.
 You will need to use and edit the attached snowboy.py and snowboydecoder.py for this to work. Run this command in snowboy directory to test out your completed setup:
 ```
 python2 snowboy.py 
 ```
-##CUSTOMIZING SNOWBOY IN COMMAND LINE
-Copy training_service.py to the snowboy directory. Log into https://snowboy.kitt.ai, click on ‚ÄúProfile settings‚Äù, and copy your API token. You will need to modify some lines of code in training_service.py with your own token, hotword, etc. Use the following command to record 3 wav files of your hotword to the same directory
+## CUSTOMIZING SNOWBOY IN COMMAND LINE
+Copy training_service.py to the snowboy directory. Log into https://snowboy.kitt.ai, click on ìProfile settingsî, and copy your API token. You will need to modify some lines of code in training_service.py with your own token, hotword, etc. Use the following command to record 3 wav files of your hotword to the same directory
 ```
 rec -r 16000 -c 1 -b 16 -e signed-integer FILENAME.wav
 ```
@@ -113,9 +113,9 @@ Run the demo to ensure it is working properly with command
 ```
 python demo.py ~/snowboy/resources/saved_model.pmdl
 ```
-##ADDITIONAL NOTES
+## ADDITIONAL NOTES
 IF you need to run snowboy automatically on system boot like me the best way was to use crontab http://www.instructables.com/id/Raspberry-Pi-Launch-Python-script-on-startup/ .bashrc and systemd were not working for me. You might have better luck, but crontab worked for this project and settings. This guide
-##TROUBLESHOOTING
+## TROUBLESHOOTING
 I experienced a sampling error IOError -9777 when trying to run snowboy on system boot. This is most likely caused by using the Raspberry Pi Zero's usb for mic in and audio out. This was fixed by editing alsa config file with command 
 ```
 sudo nano /usr/share/alsa/alsa.conf
@@ -128,7 +128,7 @@ And changing the lines
 to 1's.
 I mostly followed wanleg's snowboyPi guide https://github.com/wanleg/snowboyPi and referenced the official Snowboy site http://docs.kitt.ai/snowboy/ so you can reference these too if you run into trouble. I was not able to find a guide to get an offline voice detection software like Snowboy running on a Raspberry Pi Zero so I decided to document my own process.
 
-######To do
+###### To do
 - [ ] Find way to stop crontab service once in command line in order to work on project
 - [ ] Take out "stop" verbal command or find way to make it actually stop the audio playback
 - [ ] Get GPIO activating with each song (for personal project)
