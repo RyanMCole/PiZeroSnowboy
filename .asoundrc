@@ -1,0 +1,24 @@
+pcm.!default {
+  type asym
+   playback.pcm {
+     type plug
+     slave.pcm "hw:1,0"
+   }
+   capture.pcm {
+     type plug
+     slave.pcm "softvol"
+   }
+}
+
+pcm.softvol {
+    type            softvol
+    slave {
+        pcm         "hw:1,0"
+    }
+    control {
+        name        "Master"
+        card        0
+    }
+    max_dB 50.0
+    min_dB -3.0
+}
