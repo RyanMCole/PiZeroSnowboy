@@ -1,12 +1,12 @@
 # Pi Zero Snowboy
 Complete guide to setting up voice activated software with Raspberry Pi Zero. 1.0 22/07/2018
 ## HARDWARE
-Raspberry Pi Zero W
-USB Sound Card Adapter (BENGOO)
-3.5mm lavalier lapel mic (AGPtEK)
-1W 8Ohm speakers with 3.5mm connection
-8GB micro SD card
-USB Micro to USB adapter (Tiny OTG)
+* Raspberry Pi Zero W
+* USB Sound Card Adapter (BENGOO)
+* 3.5mm lavalier lapel mic (AGPtEK)
+* 1W 8Ohm speakers with 3.5mm connection
+* 8GB micro SD card
+* USB Micro to USB adapter (Tiny OTG)
 ## HARDWARE VARIATIONS
 It is possible to use different hardware variations for the Pi Zero, but this setup was the easiest for me. You can go with a Raspberry Pi Zero without WiFi to save $5, but it's a very convenient feature for SSH logins. I would recommend not going with more powerful speakers if you can avoid it and especially if you want to go mobile. P=I^2(R)  1=I^2(8)  I^2=1/8  I=sqrt(1/8)  I~354mA. 354mA is going to be a big drain on a mobile setup and more powerful speakers will require an external source of power. I went with a USB sound card because of the ability to adjust the volume outside of software. There are of course cheaper USB sound cards, but this solution seems to work best for Pi Zero because there is no audio jack and there is only one micro USB available for IO. You can potentially go with a mic in on the micro usb port and audio out on HDMI if that is cheaper or if you have a HDMI audio out adapter lying around just make sure you force enable HDMI audio out under raspi-config and adjust the .asoundrc accordingly. 
 ## SNOWBOY SETUP
@@ -114,7 +114,7 @@ Run the demo to ensure it is working properly with command
 python demo.py ~/snowboy/resources/saved_model.pmdl
 ```
 ## ADDITIONAL NOTES
-IF you need to run snowboy automatically on system boot like me the best way was to use crontab http://www.instructables.com/id/Raspberry-Pi-Launch-Python-script-on-startup/ .bashrc and systemd were not working for me. You might have better luck, but crontab worked for this project and settings. This guide
+**IF** you need to run snowboy automatically on system boot like me the best way was to use crontab http://www.instructables.com/id/Raspberry-Pi-Launch-Python-script-on-startup/ .bashrc and systemd were not working for me. You might have better luck, but crontab worked for this project and settings.
 ## TROUBLESHOOTING
 I experienced a sampling error IOError -9777 when trying to run snowboy on system boot. This is most likely caused by using the Raspberry Pi Zero's usb for mic in and audio out. This was fixed by editing alsa config file with command 
 ```
